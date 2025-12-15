@@ -1,0 +1,16 @@
+{
+  "name": "mcp-contact-alexis",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vercel/node": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vercel": "^39.0.0"
+  }
+}
