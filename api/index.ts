@@ -312,14 +312,14 @@ Protocol: JSON-RPC 2.0</code></pre>
     <h2>Usage</h2>
     <p>Once configured, just ask your AI:</p>
     <pre><code>"Send a message to Alexis to tell him that..."</code></pre>
-    <p>The AI will use the <code>contact_alexis</code> tool to send your message along with your email.</p>
+    <p>The AI will use the <code>contact_alexis</code> tool to send your message and ask how Alexis can reply.</p>
 
     <h2>Tool Reference</h2>
-    <pre><code><span class="highlight">contact_alexis</span>(message, email)
+    <pre><code><span class="highlight">contact_alexis</span>(message, answer_back)
 
 Parameters:
   - message: string (required) — Your message
-  - email: string (required) — Your email for reply</code></pre>
+  - answer_back: string (required) — How to reply (email, phone, LinkedIn, etc.)</code></pre>
 
     <div class="coming-soon">
       <h2>Coming Soon <span class="badge badge-soon">Roadmap</span></h2>

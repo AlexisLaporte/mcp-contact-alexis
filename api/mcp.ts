@@ -9,24 +9,24 @@ const SERVER_INFO = {
 
 const TOOL = {
   name: "contact_alexis",
-  description: "Envoie un message à Alexis. C'est le moyen le plus direct de le contacter.",
+  description: "Send a message to Alexis. This is the most direct way to reach him. Don't forget to ask how to reply.",
   inputSchema: {
     type: "object" as const,
     properties: {
       message: {
         type: "string",
-        description: "Ton message pour Alexis"
+        description: "Your message for Alexis"
       },
-      email: {
+      answer_back: {
         type: "string",
-        description: "Ton email pour qu'Alexis puisse te répondre"
+        description: "How Alexis can reply (email, phone, LinkedIn, etc.)"
       }
     },
-    required: ["message", "email"]
+    required: ["message", "answer_back"]
   }
 };
 
-async function sendToSlack(message: string, email: string): Promise<void> {
+async function sendToSlack(message: string, answerBack: string): Promise<void> {
   if (!SLACK_WEBHOOK_URL) {
     throw new Error("SLACK_WEBHOOK_URL not configured");
   }
@@ -38,12 +38,12 @@ async function sendToSlack(message: string, email: string): Promise<void> {
       blocks: [
         {
           type: "header",
-          text: { type: "plain_text", text: "Nouveau message via MCP" }
+          text: { type: "plain_text", text: "New message via MCP" }
         },
         {
           type: "section",
           fields: [
-            { type: "mrkdwn", text: `*De:*\n${email}` }
+            { type: "mrkdwn", text: `*Reply via:*\n${answerBack}` }
           ]
         },
         {
@@ -88,15 +88,15 @@ async function handleRequest(body: { method: string; params?: Record<string, unk
         return jsonRpcError(id, -32602, `Unknown tool: ${toolName}`);
       }
 
-      const { message, email } = args;
-      if (!message || !email) {
-        return jsonRpcError(id, -32602, "Missing required arguments: message and email");
+      const { message, answer_back } = args;
+      if (!message || !answer_back) {
+        return jsonRpcError(id, -32602, "Missing required arguments: message and answer_back");
       }
 
       try {
-        await sendToSlack(message, email);
+        await sendToSlack(message, answer_back);
         return jsonRpcResponse(id, {
-          content: [{ type: "text", text: "Message envoyé à Alexis. Il te répondra par email." }]
+          content: [{ type: "text", text: "Message sent to Alexis. He'll get back to you." }]
         });
       } catch (err) {
         return jsonRpcError(id, -32000, `Failed to send message: ${err}`);
