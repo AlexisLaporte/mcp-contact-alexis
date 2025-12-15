@@ -211,7 +211,36 @@ Parameters:
         </div>
       </div>
 
-      <a href="mailto:alexis.music@gmail.com?subject=MCP%20Contact%20Waitlist&body=I'd%20like%20to%20join%20the%20waitlist%20for%20my%20own%20contact%20MCP." class="waitlist-btn">Register to waiting list</a>
+      <form id="waitlist-form" style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <input type="email" name="email" placeholder="your@email.com" required style="flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff;">
+        <button type="submit" class="waitlist-btn" style="margin-top: 0;">Join waitlist</button>
+      </form>
+      <p id="waitlist-msg" style="font-size: 0.875rem; margin-top: 8px; display: none;"></p>
+      <script>
+        document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = e.target.email.value;
+          const msg = document.getElementById('waitlist-msg');
+          try {
+            const res = await fetch('/api/waitlist', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, product: 'mcp-contact' })
+            });
+            if (res.ok) {
+              msg.style.color = '#238636';
+              msg.textContent = "You're on the list!";
+            } else {
+              msg.style.color = '#e00';
+              msg.textContent = 'Something went wrong.';
+            }
+          } catch {
+            msg.style.color = '#e00';
+            msg.textContent = 'Network error.';
+          }
+          msg.style.display = 'block';
+        });
+      </script>
     </div>
 
     <div class="footer">
