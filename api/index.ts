@@ -253,6 +253,41 @@ const HTML = `<!DOCTYPE html>
     summary:hover {
       text-decoration: underline;
     }
+    .coming-soon {
+      margin-top: 3rem;
+      padding: 24px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 1px solid #333;
+      border-radius: 12px;
+    }
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .feature-icon {
+      font-size: 1.2rem;
+    }
+    .feature strong {
+      color: #fff;
+    }
+    .feature p {
+      color: #aaa;
+    }
+    .waitlist-btn {
+      background: #6e40c9;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .waitlist-btn:hover {
+      background: #8b5cf6;
+    }
   </style>
 </head>
 <body>
@@ -339,6 +374,32 @@ const HTML = `<!DOCTYPE html>
       <p style="margin-bottom: 0;"><strong>We're moving from chatbots to agents.</strong> This simple contact form is a minimal example, but the pattern scales: AI systems that can actually interact with the world, not just describe it.</p>
     </div>
 
+    <div class="coming-soon">
+      <h2 style="margin-top: 0;">Coming Soon</h2>
+
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <div>
+          <strong>Direct AI-powered replies</strong>
+          <p style="margin: 4px 0 0 0;">Get instant responses using Claude SDK — no waiting for me to check Slack.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">🌐</span>
+        <div>
+          <strong>Your own contact MCP</strong>
+          <p style="margin: 4px 0 0 0;">Deploy your personal MCP endpoint in one click. Let AI agents reach you directly.</p>
+        </div>
+      </div>
+
+      <form id="waitlist-form" style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <input type="email" name="email" placeholder="your@email.com" required style="flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff;">
+        <button type="submit" class="waitlist-btn" style="margin-top: 0;">Join waitlist</button>
+      </form>
+      <p id="waitlist-msg" style="font-size: 0.875rem; margin-top: 8px; display: none;"></p>
+    </div>
+
     <div class="footer">
       <p>Built by <a href="https://alexis.tuls.me" target="_blank">Alexis</a> · Protocol: <a href="https://modelcontextprotocol.io" target="_blank">MCP</a> · <a href="https://github.com/AlexisLaporte/mcp-contact-alexis" target="_blank">Source</a></p>
     </div>
@@ -356,6 +417,29 @@ const HTML = `<!DOCTYPE html>
         }, 2000);
       });
     }
+    document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const msg = document.getElementById('waitlist-msg');
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, product: 'mcp-contact' })
+        });
+        if (res.ok) {
+          msg.style.color = '#238636';
+          msg.textContent = "You're on the list!";
+        } else {
+          msg.style.color = '#e00';
+          msg.textContent = 'Something went wrong.';
+        }
+      } catch {
+        msg.style.color = '#e00';
+        msg.textContent = 'Network error.';
+      }
+      msg.style.display = 'block';
+    });
   </script>
 </body>
 </html>`;
