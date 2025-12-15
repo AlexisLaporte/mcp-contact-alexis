@@ -6,6 +6,7 @@ const HTML = `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Alexis via MCP</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='30%25' cy='30%25'><stop offset='0%25' stop-color='%23ffffff'/><stop offset='100%25' stop-color='%23e0e0e0'/></radialGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/></svg>">
   <style>
     * { box-sizing: border-box; }
     body {
@@ -162,9 +163,16 @@ const HTML = `<!DOCTYPE html>
 }</code></pre>
 
     <h3 style="font-size: 1rem; color: #888; margin-top: 1.5rem;">ChatGPT</h3>
-    <p>ChatGPT supports MCP via plugins. Go to <strong>Settings → Plugins → Add Plugin</strong> and add:</p>
-    <pre><code>https://mcp-contact-alexis.vercel.app/api/mcp</code></pre>
-    <p style="font-size: 0.875rem; color: #666;">Note: MCP support in ChatGPT may require ChatGPT Plus and enabling "Developer plugins".</p>
+    <p><strong>Prerequisites:</strong> Pro, Plus, Business, Enterprise or Education account.</p>
+    <p><strong>Step 1:</strong> Enable Developer Mode</p>
+    <pre><code>Settings → Connectors → Advanced → Developer Mode</code></pre>
+    <p><strong>Step 2:</strong> Create MCP Connector</p>
+    <pre><code>Settings → Connectors → Create
+
+Name: Contact Alexis
+Description: Send a message to Alexis directly
+MCP Server URL: https://mcp-contact-alexis.vercel.app/api/mcp
+Authentication: None</code></pre>
 
     <h3 style="font-size: 1rem; color: #888; margin-top: 1.5rem;">Other MCP Clients</h3>
     <p>Any MCP-compatible client can connect using the HTTP transport:</p>
