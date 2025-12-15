@@ -18,25 +18,46 @@ const HTML = `<!DOCTYPE html>
       min-height: 100vh;
     }
     .container {
-      max-width: 640px;
+      max-width: 720px;
       margin: 0 auto;
     }
     h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
     .subtitle {
       color: #888;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
     }
     h2 {
-      font-size: 1.2rem;
-      margin-top: 2rem;
+      font-size: 1.4rem;
+      margin-top: 3rem;
       margin-bottom: 1rem;
       color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .num {
+      background: #333;
+      color: #888;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+    }
+    h3 {
+      font-size: 1rem;
+      color: #888;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
     }
     p {
-      line-height: 1.6;
+      line-height: 1.7;
       color: #aaa;
     }
     pre {
@@ -50,6 +71,12 @@ const HTML = `<!DOCTYPE html>
     code {
       font-family: 'SF Mono', Monaco, 'Courier New', monospace;
     }
+    .inline-code {
+      background: #1a1a1a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
     .highlight {
       color: #58a6ff;
     }
@@ -61,6 +88,10 @@ const HTML = `<!DOCTYPE html>
       font-family: monospace;
       margin: 1rem 0;
       word-break: break-all;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
     .copy-field {
       display: flex;
@@ -102,6 +133,13 @@ const HTML = `<!DOCTYPE html>
     .copy-btn.copied {
       background: #238636;
       color: #fff;
+    }
+    .section-box {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 1rem;
     }
     .chatgpt-section {
       background: linear-gradient(135deg, #10a37f10 0%, #10a37f05 100%);
@@ -161,67 +199,78 @@ const HTML = `<!DOCTYPE html>
       font-size: 0.75rem;
       margin-left: 8px;
     }
-    .badge-soon {
-      background: #6e40c9;
-    }
     a { color: #58a6ff; }
     .footer {
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid #333;
+      border-top: 1px solid #222;
       color: #666;
       font-size: 0.875rem;
     }
-    .coming-soon {
-      margin-top: 3rem;
+    .diagram {
+      background: #0d0d0d;
+      border: 1px solid #333;
+      border-radius: 8px;
       padding: 24px;
+      margin: 1.5rem 0;
+      font-family: monospace;
+      font-size: 0.875rem;
+      color: #888;
+      text-align: center;
+      line-height: 2;
+    }
+    .diagram .arrow {
+      color: #58a6ff;
+    }
+    .diagram .node {
+      color: #fff;
+      background: #1a1a1a;
+      padding: 4px 12px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .vision-box {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
       border: 1px solid #333;
       border-radius: 12px;
+      padding: 24px;
+      margin-top: 1rem;
     }
-    .coming-soon h2 {
-      margin-top: 0;
+    .vision-box p {
+      color: #bbb;
     }
-    .feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin: 16px 0;
-    }
-    .feature-icon {
-      font-size: 1.2rem;
-    }
-    .waitlist-btn {
-      display: inline-block;
-      background: #6e40c9;
+    .vision-box strong {
       color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 500;
-      margin-top: 16px;
-      transition: background 0.2s;
     }
-    .waitlist-btn:hover {
-      background: #8b5cf6;
-      color: #fff;
+    details {
+      margin-top: 1rem;
+    }
+    summary {
+      cursor: pointer;
+      color: #58a6ff;
+      font-size: 0.875rem;
+    }
+    summary:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Contact Alexis <span class="badge">MCP</span></h1>
-    <p class="subtitle">The most direct way to reach me.</p>
+    <p class="subtitle">Reach me through your AI assistant.</p>
 
-    <h2>MCP Endpoint</h2>
-    <div class="endpoint">https://mcp.tuls.me/api/mcp</div>
+    <!-- SECTION 1: HOW TO -->
+    <h2><span class="num">1</span> How to</h2>
 
-    <h2>Setup</h2>
-    <p>Add this MCP server to your AI assistant:</p>
+    <div class="endpoint">
+      <span id="endpoint-url">https://mcp.tuls.me/api/mcp</span>
+      <button class="copy-btn" onclick="copyField('endpoint-url', this)">Copy</button>
+    </div>
 
-    <h3 style="font-size: 1rem; color: #888; margin-top: 1.5rem;">Claude Desktop</h3>
-    <p>Edit <code>~/Library/Application Support/Claude/claude_desktop_config.json</code> (macOS) or <code>%APPDATA%\\Claude\\claude_desktop_config.json</code> (Windows):</p>
-    <pre><code>{
+    <details>
+      <summary>Claude Desktop / Claude Code</summary>
+      <pre><code>{
   "mcpServers": {
     <span class="highlight">"contact-alexis"</span>: {
       "type": "url",
@@ -229,28 +278,8 @@ const HTML = `<!DOCTYPE html>
     }
   }
 }</code></pre>
-
-    <h3 style="font-size: 1rem; color: #888; margin-top: 1.5rem;">Claude Code (CLI)</h3>
-    <p><strong>Option 1:</strong> Add via command line:</p>
-    <pre><code>claude mcp add contact-alexis --transport http https://mcp.tuls.me/api/mcp</code></pre>
-    <p><strong>Option 2:</strong> Edit <code>~/.claude.json</code> manually:</p>
-    <pre><code>{
-  "mcpServers": {
-    <span class="highlight">"contact-alexis"</span>: {
-      "type": "url",
-      "url": "https://mcp.tuls.me/api/mcp"
-    }
-  }
-}</code></pre>
-    <p><strong>Option 3:</strong> Project-level config in <code>.mcp.json</code>:</p>
-    <pre><code>{
-  "mcpServers": {
-    <span class="highlight">"contact-alexis"</span>: {
-      "type": "url",
-      "url": "https://mcp.tuls.me/api/mcp"
-    }
-  }
-}</code></pre>
+      <p style="font-size: 0.875rem;">Or via CLI: <code class="inline-code">claude mcp add contact-alexis --transport http https://mcp.tuls.me/api/mcp</code></p>
+    </details>
 
     <div class="chatgpt-section">
       <h3>
@@ -259,22 +288,7 @@ const HTML = `<!DOCTYPE html>
         </svg>
         ChatGPT
       </h3>
-      <p style="color: #888; font-size: 0.875rem; margin-bottom: 1rem;">Requires Pro, Plus, Business, Enterprise or Education account with Developer Mode.</p>
-
-      <ol class="steps-list">
-        <li>
-          <span class="step-num">1</span>
-          <span class="step-content"><strong>Settings</strong> → <strong>Connectors</strong> → Advanced → Enable <strong>Developer Mode</strong></span>
-        </li>
-        <li>
-          <span class="step-num">2</span>
-          <span class="step-content"><strong>Settings</strong> → <strong>Connectors</strong> → <strong>Create</strong></span>
-        </li>
-        <li>
-          <span class="step-num">3</span>
-          <span class="step-content">Fill in the fields below (click to copy):</span>
-        </li>
-      </ol>
+      <p style="color: #888; font-size: 0.875rem; margin-bottom: 1rem;">Settings → Connectors → Create (requires Developer Mode)</p>
 
       <div class="copy-field">
         <span class="copy-field-label">Name</span>
@@ -283,7 +297,7 @@ const HTML = `<!DOCTYPE html>
       </div>
       <div class="copy-field">
         <span class="copy-field-label">Description</span>
-        <span class="copy-field-value" id="chatgpt-desc">Send a direct message to Alexis. He'll receive it instantly and can reply by email.</span>
+        <span class="copy-field-value" id="chatgpt-desc">Send a direct message to Alexis</span>
         <button class="copy-btn" onclick="copyField('chatgpt-desc', this)">Copy</button>
       </div>
       <div class="copy-field">
@@ -291,102 +305,58 @@ const HTML = `<!DOCTYPE html>
         <span class="copy-field-value" id="chatgpt-url">https://mcp.tuls.me/api/mcp</span>
         <button class="copy-btn" onclick="copyField('chatgpt-url', this)">Copy</button>
       </div>
-      <div class="copy-field">
-        <span class="copy-field-label">Icon</span>
-        <span class="copy-field-value" id="chatgpt-icon">https://mcp.tuls.me/api/icon.png</span>
-        <button class="copy-btn" onclick="copyField('chatgpt-icon', this)">Copy</button>
-      </div>
-      <div class="copy-field">
-        <span class="copy-field-label">Auth</span>
-        <span class="copy-field-value" id="chatgpt-auth">None</span>
-        <button class="copy-btn" onclick="copyField('chatgpt-auth', this)">Copy</button>
-      </div>
     </div>
 
-    <h3 style="font-size: 1rem; color: #888; margin-top: 1.5rem;">Other MCP Clients</h3>
-    <p>Any MCP-compatible client can connect using the HTTP transport:</p>
-    <pre><code>Endpoint: https://mcp.tuls.me/api/mcp
-Transport: HTTP (Streamable)
-Protocol: JSON-RPC 2.0</code></pre>
+    <!-- SECTION 2: WHAT -->
+    <h2><span class="num">2</span> What is this?</h2>
 
-    <h2>Usage</h2>
-    <p>Once configured, just ask your AI:</p>
-    <pre><code>"Send a message to Alexis to tell him that..."</code></pre>
-    <p>The AI will use the <code>contact_alexis</code> tool to send your message and ask how Alexis can reply.</p>
+    <div class="section-box">
+      <p style="margin-top: 0;"><strong>MCP</strong> (Model Context Protocol) is a standard that lets AI assistants use external tools. Think of it as USB-C for AI: a universal way to plug capabilities into any LLM.</p>
 
-    <h2>Tool Reference</h2>
-    <pre><code><span class="highlight">contact_alexis</span>(message, answer_back)
+      <p>This server exposes one tool: <code class="inline-code">contact_alexis</code>. When called, it sends your message to my Slack.</p>
 
-Parameters:
-  - message: string (required) — Your message
-  - answer_back: string (required) — How to reply (email, phone, LinkedIn, etc.)</code></pre>
-
-    <div class="coming-soon">
-      <h2>Coming Soon <span class="badge badge-soon">Roadmap</span></h2>
-
-      <div class="feature">
-        <span class="feature-icon">⚡</span>
-        <div>
-          <strong style="color: #fff;">Direct AI-powered replies</strong>
-          <p style="margin: 4px 0 0 0;">Get instant responses using Claude SDK — no waiting for me to check Slack.</p>
-        </div>
+      <div class="diagram">
+        <span class="node">Your AI</span>
+        <span class="arrow"> → JSON-RPC → </span>
+        <span class="node">MCP Server</span>
+        <span class="arrow"> → Webhook → </span>
+        <span class="node">Slack</span>
       </div>
 
-      <div class="feature">
-        <span class="feature-icon">🌐</span>
-        <div>
-          <strong style="color: #fff;">Your own contact MCP</strong>
-          <p style="margin: 4px 0 0 0;">Deploy your personal MCP endpoint in one click. Let AI agents reach you directly.</p>
-        </div>
-      </div>
+      <p style="margin-bottom: 0;">The AI handles the conversation naturally. It asks for your message, how I can reply, then calls the tool. No forms, no friction.</p>
+    </div>
 
-      <form id="waitlist-form" style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
-        <input type="email" name="email" placeholder="your@email.com" required style="flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff;">
-        <button type="submit" class="waitlist-btn" style="margin-top: 0;">Join waitlist</button>
-      </form>
-      <p id="waitlist-msg" style="font-size: 0.875rem; margin-top: 8px; display: none;"></p>
-      <script>
-        function copyField(id, btn) {
-          const text = document.getElementById(id).textContent;
-          navigator.clipboard.writeText(text).then(() => {
-            btn.textContent = 'Copied!';
-            btn.classList.add('copied');
-            setTimeout(() => {
-              btn.textContent = 'Copy';
-              btn.classList.remove('copied');
-            }, 2000);
-          });
-        }
-        document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const email = e.target.email.value;
-          const msg = document.getElementById('waitlist-msg');
-          try {
-            const res = await fetch('/api/waitlist', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email, product: 'mcp-contact' })
-            });
-            if (res.ok) {
-              msg.style.color = '#238636';
-              msg.textContent = "You're on the list!";
-            } else {
-              msg.style.color = '#e00';
-              msg.textContent = 'Something went wrong.';
-            }
-          } catch {
-            msg.style.color = '#e00';
-            msg.textContent = 'Network error.';
-          }
-          msg.style.display = 'block';
-        });
-      </script>
+    <!-- SECTION 3: WHY -->
+    <h2><span class="num">3</span> Why it matters</h2>
+
+    <div class="vision-box">
+      <p style="margin-top: 0;"><strong>Tools transform LLMs from knowledge bases into actors.</strong></p>
+
+      <p>Without tools, an AI can only generate text. With tools, it can query databases, send emails, deploy code, book meetings. The gap between "knowing how" and "doing" disappears.</p>
+
+      <p>MCP standardizes this. Instead of building custom integrations for each AI platform, you build once and it works everywhere: Claude, ChatGPT, local models, future systems we haven't seen yet.</p>
+
+      <p style="margin-bottom: 0;"><strong>We're moving from chatbots to agents.</strong> This simple contact form is a minimal example, but the pattern scales: AI systems that can actually interact with the world, not just describe it.</p>
     </div>
 
     <div class="footer">
-      <p>Protocol: <a href="https://modelcontextprotocol.io" target="_blank">Model Context Protocol</a></p>
+      <p>Built by <a href="https://alexis.tuls.me" target="_blank">Alexis</a> · Protocol: <a href="https://modelcontextprotocol.io" target="_blank">MCP</a> · <a href="https://github.com/AlexisLaporte/mcp-contact-alexis" target="_blank">Source</a></p>
     </div>
   </div>
+
+  <script>
+    function copyField(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>`;
 
