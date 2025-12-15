@@ -214,7 +214,7 @@ const HTML = `<!DOCTYPE html>
     <p class="subtitle">The most direct way to reach me.</p>
 
     <h2>MCP Endpoint</h2>
-    <div class="endpoint">https://mcp-contact-alexis.vercel.app/api/mcp</div>
+    <div class="endpoint">https://mcp.tuls.me/api/mcp</div>
 
     <h2>Setup</h2>
     <p>Add this MCP server to your AI assistant:</p>
@@ -225,20 +225,20 @@ const HTML = `<!DOCTYPE html>
   "mcpServers": {
     <span class="highlight">"contact-alexis"</span>: {
       "type": "url",
-      "url": "https://mcp-contact-alexis.vercel.app/api/mcp"
+      "url": "https://mcp.tuls.me/api/mcp"
     }
   }
 }</code></pre>
 
     <h3 style="font-size: 1rem; color: #888; margin-top: 1.5rem;">Claude Code (CLI)</h3>
     <p><strong>Option 1:</strong> Add via command line:</p>
-    <pre><code>claude mcp add contact-alexis --transport http https://mcp-contact-alexis.vercel.app/api/mcp</code></pre>
+    <pre><code>claude mcp add contact-alexis --transport http https://mcp.tuls.me/api/mcp</code></pre>
     <p><strong>Option 2:</strong> Edit <code>~/.claude.json</code> manually:</p>
     <pre><code>{
   "mcpServers": {
     <span class="highlight">"contact-alexis"</span>: {
       "type": "url",
-      "url": "https://mcp-contact-alexis.vercel.app/api/mcp"
+      "url": "https://mcp.tuls.me/api/mcp"
     }
   }
 }</code></pre>
@@ -247,7 +247,7 @@ const HTML = `<!DOCTYPE html>
   "mcpServers": {
     <span class="highlight">"contact-alexis"</span>: {
       "type": "url",
-      "url": "https://mcp-contact-alexis.vercel.app/api/mcp"
+      "url": "https://mcp.tuls.me/api/mcp"
     }
   }
 }</code></pre>
@@ -288,7 +288,7 @@ const HTML = `<!DOCTYPE html>
       </div>
       <div class="copy-field">
         <span class="copy-field-label">Server URL</span>
-        <span class="copy-field-value" id="chatgpt-url">https://mcp-contact-alexis.vercel.app/api/mcp</span>
+        <span class="copy-field-value" id="chatgpt-url">https://mcp.tuls.me/api/mcp</span>
         <button class="copy-btn" onclick="copyField('chatgpt-url', this)">Copy</button>
       </div>
       <div class="copy-field">
@@ -305,7 +305,7 @@ const HTML = `<!DOCTYPE html>
 
     <h3 style="font-size: 1rem; color: #888; margin-top: 1.5rem;">Other MCP Clients</h3>
     <p>Any MCP-compatible client can connect using the HTTP transport:</p>
-    <pre><code>Endpoint: https://mcp-contact-alexis.vercel.app/api/mcp
+    <pre><code>Endpoint: https://mcp.tuls.me/api/mcp
 Transport: HTTP (Streamable)
 Protocol: JSON-RPC 2.0</code></pre>
 
